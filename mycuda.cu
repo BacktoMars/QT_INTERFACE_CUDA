@@ -28,16 +28,14 @@ void runCudaPart(float *a, float *b, float *c, int n) {
     float *a_d, *b_d, *c_d;
     size_t size = n * sizeof(float);
     
-    printf("n = %d\n", n);
-    printf("%f %f %f\n", a[10], b[10], c[10]);
-
     cudaMalloc((void **) &a_d, size);
     cudaMalloc((void **) &b_d, size);
     cudaMalloc((void **) &c_d, size);
 
     cudaMemcpy(a_d, a, size,cudaMemcpyHostToDevice);
     cudaMemcpy(b_d, b, size,cudaMemcpyHostToDevice);
-    cudaMemset(c_d, 0, n);
+    cudaMemcpy(c_d, c, size,cudaMemcpyHostToDevice);
+    //cudaMemset(c_d, 0, n);
 
     printf("Executing CUDA kernel\n");
     myKernel <<<1,100>>> (a_d, b_d, c_d, n);
