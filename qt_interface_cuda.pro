@@ -11,7 +11,7 @@ INCLUDEPATH += .
 SOURCES += main.cpp
 
 # Console application
-CONFIG += console
+#CONFIG += console
 
 # cuda source
 CUDA_SOURCES += mycuda.cu
