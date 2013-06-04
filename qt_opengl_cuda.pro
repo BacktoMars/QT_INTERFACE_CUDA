@@ -3,17 +3,18 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = 
+TARGET = qt_opengl_cuda
 DEPENDPATH += .
 INCLUDEPATH += .
 
 # Input
 SOURCES += main.cpp mainwindow.cpp appglwidget.cpp \
-    mainform.cpp
+    mainform.cpp simplePBO.cpp
 
 HEADERS += mainwindow.h \
     appglwidget.h \
-    mainform.h
+    mainform.h \
+    simplePBO.h
 # Console application
 #CONFIG += console
 
@@ -27,7 +28,7 @@ CUDA_DIR = /usr/local/cuda
 INCLUDEPATH += $$CUDA_DIR/include
 QMAKE_LIBDIR += $$CUDA_DIR/lib64
 # GPU architecture
-CUDA_ARCH = sm_20
+CUDA_ARCH = sm_35
 # NVCC flags
 #NVCCFLAGS = --compiler-options -fno-strict-aliasing -use_fast_math --ptxas-options=-v
 NVCCFLAGS = --compiler-options -use_fast_math
