@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "appglwidget.h"
 
+
 namespace Ui {
 class MainForm;
 }
@@ -19,6 +20,8 @@ public:
 private slots:
     void on_pushButton_clicked();
     void on_pushButton_RUNCUDA_clicked();
+    void on_pushButton_ZOOM_IN_clicked();
+    void on_pushButton_ZOOM_OUT_clicked();
 	//void on_pushButton_EXIT_clicked();
 
 private:

@@ -8,7 +8,7 @@
 #include <cuda_runtime.h>
 #include <cuda_gl_interop.h>
 
-#include "global.h"
+//#include "global.h"
 
 /**
  * SimplePBO encapsulates pixel buffer object and 2d texturing.

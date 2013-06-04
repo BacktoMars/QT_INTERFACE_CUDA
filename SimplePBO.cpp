@@ -1,10 +1,17 @@
 #include "SimplePBO.h"
 
 #include <cuda_runtime_api.h>
+#include "global.h"
 
 #ifndef GL_BGRA
 #define GL_BGRA 0x80E1
 #endif
+
+
+extern float xmin;
+extern float xmax;
+extern float ymin;
+extern float ymax;
 
 //extern "C" void launch_Mandelbrot_kernel(uchar4* ptr, int width, int height, int time);
 
@@ -65,7 +72,8 @@ void SimplePBO::runCuda(int time)
   HANDLE_ERROR( cudaGLMapBufferObject((void**)&dptr, pixelBuffer->bufferId()) );
   Q_ASSERT(dptr);
   // execute the kernel
-  launch_Mandelbrot_kernel(dptr, image_width, image_height);
+  //launch_Mandelbrot_kernel(dptr, image_width, image_height);
+  launch_Mandelbrot_kernel(dptr, image_width, image_height, xmin, xmax, ymin, ymax);
 
   // unmap buffer object
   HANDLE_ERROR( cudaGLUnmapBufferObject(pixelBuffer->bufferId()) );

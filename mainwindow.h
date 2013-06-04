@@ -7,7 +7,7 @@
 //#include <QAction>
 //#include <QApplication>
 #include "appglwidget.h"
-#include "mainwindow.h"
+//#include "mainwindow.h"
 
 class MainWindow : public QMainWindow
 {

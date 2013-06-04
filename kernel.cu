@@ -23,15 +23,21 @@ __global__ void kernel(int *a, int *b, int *c)
 
 }
 
-__global__ void Mandelbrot_kernel(uchar4* ptr, int width, int height, float* palette_d)
+//__global__ void Mandelbrot_kernel(uchar4* ptr, int width, int height, float* palette_d)
+__global__ void Mandelbrot_kernel(uchar4* ptr, int width, int height, float* palette_d, float xmin, float xmax, float ymin, float ymax)
 {
     // map from threadIdx/BlockIdx to pixel position
     float x = threadIdx.x + blockIdx.x * blockDim.x;
     float y = threadIdx.y + blockIdx.y * blockDim.y;
     int offset = x + y * blockDim.x * gridDim.x;
     
-	  float cx = 3.0f * (x / width-0.5f);
-	  float cy = 2.0f * (y / height-0.5f);
+	  //float cx = 3.0f * (x / width-0.5f);
+	  //float cy = 2.0f * (y / height-0.5f);
+
+
+	  float cx = xmin + (x / width) * (xmax - xmin);
+	  float cy = ymin + (y / height) * (ymax - ymin);
+
 
 	//  int i;
  //   float zx = cx;
@@ -119,7 +125,8 @@ extern "C" void launch_kernel()
 
 }
 
-extern "C" void launch_Mandelbrot_kernel(uchar4* ptr, int width, int height)
+//extern "C" void launch_Mandelbrot_kernel(uchar4* ptr, int width, int height)
+extern "C" void launch_Mandelbrot_kernel(uchar4* ptr, int width, int height, float xmin, float xmax, float ymin, float ymax)
 {
 	dim3    blocks(width/16, height/16);
 	dim3    threads(16,16);
@@ -154,5 +161,6 @@ for(int i=0; i < 64; i++){
 	cudaMalloc((void **) &palette_d, 255*3*sizeof(float));	
 	cudaMemcpy(palette_d, palette, 255*3*sizeof(float), cudaMemcpyHostToDevice);
 
-	Mandelbrot_kernel<<<blocks, threads>>>(ptr, width, height, palette_d);
+	//Mandelbrot_kernel<<<blocks, threads>>>(ptr, width, height, palette_d);
+	Mandelbrot_kernel<<<blocks, threads>>>(ptr, width, height, palette_d, xmin, xmax, ymin, ymax);
 }

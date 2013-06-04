@@ -5,6 +5,13 @@
 #include "QTextStream"
 #include "QFileDialog"
 
+//#include "global.h"
+
+float xmin = -1.5;
+float xmax = 1.5;
+float ymin = -1.0;
+float ymax = 1.0;
+
 
 MainForm::MainForm(QWidget *parent) :
     QWidget(parent),
@@ -50,4 +57,29 @@ void MainForm::on_pushButton_RUNCUDA_clicked()
 	//printf("Run CUDA button pushed\n");
 	launch_kernel();
 	printf("Kernel ended\n");
+}
+
+void MainForm::on_pushButton_ZOOM_IN_clicked()
+{
+	//printf("Run CUDA button pushed\n");
+	//printf("Zoom button launched\n");
+	xmin /= 2.0;
+	xmax /= 2.0;
+	ymin /= 2.0;
+	ymax /= 2.0;
+
+	glWidget->repaint();
+}
+
+
+void MainForm::on_pushButton_ZOOM_OUT_clicked()
+{
+	//printf("Run CUDA button pushed\n");
+	//printf("Zoom button launched\n");
+	xmin *= 2.0;
+	xmax *= 2.0;
+	ymin *= 2.0;
+	ymax *= 2.0;
+
+	glWidget->repaint();
 }
